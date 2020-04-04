@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import sys
-import requests
 import configparser
 import argparse
 import logging
@@ -10,6 +9,19 @@ import traceback
 from  logging import config
 from os import path
 import re
+
+'''
+#有关Excel
+2007版之前的excel文件后缀为.xls，最大支持65535行数据，xlrd和xlwt主要应用于07版之前的Excel文件。
+      xlrd(excel  read)可以用来读取.xls和.xlsx文件，
+      xlwt(excel write)写文件只支持.xls，所以对数据的大小有限制
+2017版之后的excel文件后缀为.xlsx, 最大支持1048576行，使用openpyxl来弥补xlwt的缺陷来处理大文件。
+
+OpenPyXL的官网参考：
+https://openpyxl.readthedocs.io/en/latest/usage.html
+https://openpyxl.readthedocs.io/en/stable/
+'''
+
 
 logger = logging.getLogger('APP')
 gStubFlag = False
@@ -35,6 +47,8 @@ def loadLoggingFile(loggingConfSearchList, filename):
 
 
 def argumentParser():
+        logger.debug("Total " + str(len(sys.argv))  + " parameter: " +  str(sys.argv))
+
         parser = argparse.ArgumentParser()
         parser.add_argument("-op","--targetOperation",  nargs='+', type=str, choices=['dataWash'], required=True,
                                                         help="what do you want to do?", default='dataWash')
@@ -58,7 +72,8 @@ def operationHandler(args):
         try:
                 targetOperation = args.targetOperation[0]
                 if targetOperation == 'dataWash':
-                        logger.info("read file: " + args.filename[0])
+                        filename = args.filename[0]
+                        logger.info("read file: " + filename)
 
                 else:
                         logger.error("unexpect operation...")
