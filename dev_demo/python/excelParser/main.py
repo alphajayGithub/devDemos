@@ -8,7 +8,7 @@ import logging
 import traceback
 from  logging import config
 from os import path
-import re
+from lib import commonWrapper
 
 '''
 #有关Excel
@@ -73,8 +73,7 @@ def operationHandler(args):
                 targetOperation = args.targetOperation[0]
                 if targetOperation == 'dataWash':
                         filename = args.filename[0]
-                        logger.info("read file: " + filename)
-
+                        commonWrapper.readExcel(filename)
                 else:
                         logger.error("unexpect operation...")
 
@@ -83,7 +82,7 @@ def operationHandler(args):
 
         except Exception as e:
                 logger.critical('Exception is catched')
-                logger.critical(traceback.logger.info_exc())
+                logger.critical(traceback.print_exc())
 
 if __name__ == '__main__':
         loadLoggingFile(['csv', 'conf', 'bin'], 'logging.conf' )
