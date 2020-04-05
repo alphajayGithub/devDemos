@@ -8,7 +8,7 @@ import logging
 import traceback
 from  logging import config
 from os import path
-from lib import commonWrapper
+from libexcel import commonWrapper
 
 '''
 #有关Excel
@@ -50,7 +50,7 @@ def argumentParser():
         logger.debug("Total " + str(len(sys.argv))  + " parameter: " +  str(sys.argv))
 
         parser = argparse.ArgumentParser()
-        parser.add_argument("-op","--targetOperation",  nargs='+', type=str, choices=['dataWash'], required=True,
+        parser.add_argument("-op","--targetOperation",  nargs='+', type=str, choices=['dataWash'],
                                                         help="what do you want to do?", default='dataWash')
 
         parser.add_argument("-outdir","--saveDir",      nargs='+', type=str,
@@ -70,7 +70,7 @@ def operationHandler(args):
                 gStubFlag = args.debugMode
 
         try:
-                targetOperation = args.targetOperation[0]
+                targetOperation = args.targetOperation
                 if targetOperation == 'dataWash':
                         filename = args.filename[0]
                         commonWrapper.readExcel(filename)
