@@ -221,6 +221,7 @@ def readExcel(filenameWithPath):
         return
     else:
         #https://www.jianshu.com/p/576c0c6fa3d9
+        #https://baijiahao.baidu.com/s?id=1626444772510647388  Python利用openpyxl处理Excel文件
 
         workBook = load_workbook(filenameWithPath)
         logger.info(workBook.get_sheet_names())
