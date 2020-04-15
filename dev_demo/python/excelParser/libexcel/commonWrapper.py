@@ -81,7 +81,7 @@ def getSaveFile(filenameWithPath):
         filePath, filename =  os.path.split(filenameWithPath)
         callName, extension = os.path.splitext(filename)
         saveFile = filePath+"/" + callName + extension
-        saveAsFile = filePath+"/" + callName + str(2) + extension
+        saveAsFile = filePath+"/" + callName + "_2" + extension
         logger.debug( 'current absolute dir:' + os.path.dirname(os.path.abspath(filenameWithPath)) )
         logger.debug( 'filenameWithPath:' + filenameWithPath)
         logger.debug( 'filePath|name|extension:' + filePath + " " + callName + extension)
@@ -94,17 +94,17 @@ def initHeaderAndformatCode(srcSheet, myWorkSheet):
     logger.debug("max_column : " + str(srcSheet.max_column))
 
 
-    targetContentColumn=0 
+    targetContentColumn=0
     for cIndex in range(1,srcSheet.max_column):
         if "代码" in str(srcSheet.cell(1,cIndex).value):
             targetContentColumn = cIndex
 
-    #code = srcSheet.cell(5,targetContentColumn).value   
-    #print(  len(str(code)) )   
+    #code = srcSheet.cell(5,targetContentColumn).value
+    #print(  len(str(code)) )
     #print(  str(code).zfill(6) )
 
     for r in range(1, srcSheet.max_row+1):
-            value = srcSheet.cell(r,targetContentColumn).value 
+            value = srcSheet.cell(r,targetContentColumn).value
             if type(value) is int :  # and len(str(value)) < 6
                  #logger.info( "value is " + str(value))
                  myWorkSheet.cell(r,targetContentColumn).value = str(value).zfill(6)
@@ -113,7 +113,7 @@ def initHeaderAndformatCode(srcSheet, myWorkSheet):
     #cellRange = srcSheet['F2':'F4']
 
     myWorkSheet.insert_cols(0, len(dataTitle))
-    dataOffset =0  
+    dataOffset =0
     for index in range(0,len(dataTitle)):
         column = (index+1) + dataOffset
         myWorkSheet.cell(1,column).value = dataTitle[index]
@@ -121,8 +121,8 @@ def initHeaderAndformatCode(srcSheet, myWorkSheet):
 
 
 def writeDataForYuGao(srcSheet, myWorkSheet):
-    offset =0  
-    
+    offset =0
+
     for cIndex in range(1,srcSheet.max_column):
         if "预告摘要" in str(srcSheet.cell(1,cIndex).value):
             targetContentColumn = cIndex
@@ -140,11 +140,11 @@ def writeDataForYuGao(srcSheet, myWorkSheet):
 
 
 def  setTSdata(srcData, myWorkSheet ):
-    targetContentColumn=0 
+    targetContentColumn=0
     for cIndex in range(1,myWorkSheet.max_column):
         if "代码" in str(myWorkSheet.cell(1,cIndex).value):
             targetContentColumn = cIndex
-    
+
     print(targetContentColumn)
 
     profitIndex = dataTitle.index('万元')+1
@@ -158,17 +158,17 @@ def  setTSdata(srcData, myWorkSheet ):
 
     #logger.info(dataTitle.index('市值'))
     #logger.info(dataTitle.index('Price'))
-    
+
     #logger.critical(srcData['code'])
     for r in range(1, myWorkSheet.max_row+1):
-            key = myWorkSheet.cell(r,targetContentColumn).value 
+            key = myWorkSheet.cell(r,targetContentColumn).value
             #print(type(value))
             #print((value))
             #print(len(key))
             if  (type(key) is str and  len(key) == 6 ):
                  logger.info( "code is " + key)
 
-                
+
 
                  #myWorkSheet.cell(r,targetContentColumn).value = str(value).zfill(6)
                  #logger.info(myWorkSheet.cell(r,targetContentColumn).value )
@@ -189,10 +189,13 @@ def  setTSdata(srcData, myWorkSheet ):
 
                  if myWorkSheet.cell(r,profitIndex).value is not None:
                     profitValue = myWorkSheet.cell(r,profitIndex).value
-                    profitValue2 = myWorkSheet.cell(r,profitIndex2).value    
-                    myWorkSheet.cell(r,WPEIndex).value  =  float(mktcapValue[0])/(float(profitValue)*4)
-                    myWorkSheet.cell(r,WPEIndex2).value  = float(mktcapValue[0])/(float(profitValue2)*4)
-    
+                    profitValue2 = myWorkSheet.cell(r,profitIndex2).value
+
+                    if float(profitValue) != 0  and float(profitValue2) != 0 :
+                                myWorkSheet.cell(r,WPEIndex).value  =  float(mktcapValue[0])/(float(profitValue)*4)
+                                myWorkSheet.cell(r,WPEIndex2).value  = float(mktcapValue[0])/(float(profitValue2)*4)
+
+
     '''
     #print( srcData[ srcData['code'] ==688399 ]['trade'].values)
     for dataIndex  in srcData.index.values:
@@ -206,8 +209,8 @@ def createMySheet(workBook, srcSheet, desSheetName):
                     workBook.remove_sheet(workBook.get_sheet_by_name(desSheetName))
 
     #myWorkSheet = workBook.create_sheet(desSheetName)
-    
-    myWorkSheet = workBook.copy_worksheet(srcSheet) 
+
+    myWorkSheet = workBook.copy_worksheet(srcSheet)
     myWorkSheet.title = desSheetName
     return myWorkSheet
 
@@ -229,7 +232,7 @@ def readExcel(filenameWithPath):
         #sheets = workBook.worksheets
         #srcSheet = sheets[0]
 
-        
+
         filename = 'output/data.xls'
         if not os.path.exists(filename):
             currentDayData = ts.get_today_all()
@@ -240,7 +243,7 @@ def readExcel(filenameWithPath):
         else:
             currentDayData=pd.read_excel(filename,sheet_name='All')
 
-           
+
 
         for parseSheetName in workBook.get_sheet_names():
             logger.info( "current Sheet is:  " + parseSheetName)
@@ -248,7 +251,7 @@ def readExcel(filenameWithPath):
 
 
 
-            if "预告" in parseSheetName:                   
+            if "预告" in parseSheetName:
                     logger.debug("预告: " + parseSheetName)
                     myWorkSheetName =  sheetNamePrefix + "_" + parseSheetName
                     myWorkSheet = createMySheet(workBook,srcSheet, myWorkSheetName)
