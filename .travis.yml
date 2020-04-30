@@ -20,7 +20,16 @@ jobs:
 install: pip3 install --upgrade pip  # all three OSes agree about 'pip3'
 # 'python' points to Python 2.7 on macOS but points to Python 3.8 on Linux and Windows
 # 'python3' is a 'command not found' error on Windows but 'py' works on Windows only
-script:  python3  python/excelParser/main.py
+script:  python3  dev_demo/python/excelParser/build.sh
 
+
+deploy:
+      provider: releases
+      api_key:
+        secure: 175a75d1aef579792aa05ce2c5c70db3ca9d7f5e
+      file: dev_demo/python/excelParser.zip
+      skip_cleanup: true
+      on:
+        tags: false
 
 

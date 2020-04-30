@@ -70,7 +70,7 @@ def operationHandler(args):
                 gStubFlag = args.debugMode
 
         try:
-                targetOperation = args.targetOperation
+                targetOperation = args.targetOperation[0]
                 if targetOperation == 'dataWash':
                         filename = args.filename[0]
                         commonWrapper.readExcel(filename)
