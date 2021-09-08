@@ -1,0 +1,44 @@
+@startuml
+
+Prototype <|.. ConcretePrototype1
+Prototype <|.. ConcretePrototype2
+
+abstract Prototype{
+    # prototype_name_
+    # prototype_field_
+    + Prototype(prototype_name)
+    + Prototype* Clone()
+    + Method(prototype_field)
+}
+
+class ConcretePrototype1{
+    - concrete_prototype_field1_
+    + ConcretePrototype1()
+    + Prototype * Clone()
+}
+
+class ConcretePrototype2{
+    - concrete_prototype_field2_
+    + ConcretePrototype2()
+    + Prototype * Clone()
+}
+
+Prototype "N" o.. "1" PrototypeFactory #line:red;line.bold;text:red
+
+class PrototypeFactory{
+    - prototypes_
+    + PrototypeFactory() ->prototypes_[Type]
+    + CreatePrototype(Type) ->  Prototype * = prototypes_[Type].Clone()
+}
+
+Client -[bold]-> PrototypeFactory
+class Client{
+    + Client(PrototypeFactory &)
+}
+
+enum Type {
+  PROTOTYPE_1
+  PROTOTYPE_2
+}
+
+@enduml

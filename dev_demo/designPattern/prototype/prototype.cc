@@ -1,3 +1,6 @@
+#include <iostream>
+#include <unordered_map>
+
 using std::string;
 
 // Prototype Design Pattern
@@ -117,7 +120,6 @@ void Client(PrototypeFactory &prototype_factory) {
   delete prototype;
 
   std::cout << "\n";
-
   std::cout << "Let's create a Prototype 2 \n";
 
   prototype = prototype_factory.CreatePrototype(Type::PROTOTYPE_2);

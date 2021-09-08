@@ -1,157 +1,162 @@
 from __future__ import annotations
 from abc import ABC, abstractmethod
+from typing import Any
 
 
-class AbstractFactory(ABC):
+class Builder(ABC):
     """
-    The Abstract Factory interface declares a set of methods that return
-    different abstract products. These products are called a family and are
-    related by a high-level theme or concept. Products of one family are usually
-    able to collaborate among themselves. A family of products may have several
-    variants, but the products of one variant are incompatible with products of
-    another.
+    The Builder interface specifies methods for creating the different parts of
+    the Product objects.
     """
+
+    @property
     @abstractmethod
-    def create_product_a(self) -> AbstractProductA:
+    def product(self) -> None:
         pass
 
     @abstractmethod
-    def create_product_b(self) -> AbstractProductB:
-        pass
-
-
-class ConcreteFactory1(AbstractFactory):
-    """
-    Concrete Factories produce a family of products that belong to a single
-    variant. The factory guarantees that resulting products are compatible. Note
-    that signatures of the Concrete Factory's methods return an abstract
-    product, while inside the method a concrete product is instantiated.
-    """
-
-    def create_product_a(self) -> AbstractProductA:
-        return ConcreteProductA1()
-
-    def create_product_b(self) -> AbstractProductB:
-        return ConcreteProductB1()
-
-
-class ConcreteFactory2(AbstractFactory):
-    """
-    Each Concrete Factory has a corresponding product variant.
-    """
-
-    def create_product_a(self) -> AbstractProductA:
-        return ConcreteProductA2()
-
-    def create_product_b(self) -> AbstractProductB:
-        return ConcreteProductB2()
-
-
-class AbstractProductA(ABC):
-    """
-    Each distinct product of a product family should have a base interface. All
-    variants of the product must implement this interface.
-    """
-
-    @abstractmethod
-    def useful_function_a(self) -> str:
-        pass
-
-
-"""
-Concrete Products are created by corresponding Concrete Factories.
-"""
-
-
-class ConcreteProductA1(AbstractProductA):
-    def useful_function_a(self) -> str:
-        return "The result of the product A1."
-
-
-class ConcreteProductA2(AbstractProductA):
-    def useful_function_a(self) -> str:
-        return "The result of the product A2."
-
-
-class AbstractProductB(ABC):
-    """
-    Here's the the base interface of another product. All products can interact
-    with each other, but proper interaction is possible only between products of
-    the same concrete variant.
-    """
-    @abstractmethod
-    def useful_function_b(self) -> None:
-        """
-        Product B is able to do its own thing...
-        """
+    def produce_part_a(self) -> None:
         pass
 
     @abstractmethod
-    def another_useful_function_b(self, collaborator: AbstractProductA) -> None:
-        """
-        ...but it also can collaborate with the ProductA.
+    def produce_part_b(self) -> None:
+        pass
 
-        The Abstract Factory makes sure that all products it creates are of the
-        same variant and thus, compatible.
-        """
+    @abstractmethod
+    def produce_part_c(self) -> None:
         pass
 
 
-"""
-Concrete Products are created by corresponding Concrete Factories.
-"""
-
-
-class ConcreteProductB1(AbstractProductB):
-    def useful_function_b(self) -> str:
-        return "The result of the product B1."
-
+class ConcreteBuilder1(Builder):
     """
-    The variant, Product B1, is only able to work correctly with the variant,
-    Product A1. Nevertheless, it accepts any instance of AbstractProductA as an
-    argument.
+    The Concrete Builder classes follow the Builder interface and provide
+    specific implementations of the building steps. Your program may have
+    several variations of Builders, implemented differently.
     """
 
-    def another_useful_function_b(self, collaborator: AbstractProductA) -> str:
-        result = collaborator.useful_function_a()
-        return f"The result of the B1 collaborating with the ({result})"
-
-
-class ConcreteProductB2(AbstractProductB):
-    def useful_function_b(self) -> str:
-        return "The result of the product B2."
-
-    def another_useful_function_b(self, collaborator: AbstractProductA):
+    def __init__(self) -> None:
         """
-        The variant, Product B2, is only able to work correctly with the
-        variant, Product A2. Nevertheless, it accepts any instance of
-        AbstractProductA as an argument.
+        A fresh builder instance should contain a blank product object, which is
+        used in further assembly.
         """
-        result = collaborator.useful_function_a()
-        return f"The result of the B2 collaborating with the ({result})"
+        self.reset()
+
+    def reset(self) -> None:
+        self._product = Product1()
+
+    @property
+    def product(self) -> Product1:
+        """
+        Concrete Builders are supposed to provide their own methods for
+        retrieving results. That's because various types of builders may create
+        entirely different products that don't follow the same interface.
+        Therefore, such methods cannot be declared in the base Builder interface
+        (at least in a statically typed programming language).
+
+        Usually, after returning the end result to the client, a builder
+        instance is expected to be ready to start producing another product.
+        That's why it's a usual practice to call the reset method at the end of
+        the `getProduct` method body. However, this behavior is not mandatory,
+        and you can make your builders wait for an explicit reset call from the
+        client code before disposing of the previous result.
+        """
+        product = self._product
+        self.reset()
+        return product
+
+    def produce_part_a(self) -> None:
+        self._product.add("PartA1")
+
+    def produce_part_b(self) -> None:
+        self._product.add("PartB1")
+
+    def produce_part_c(self) -> None:
+        self._product.add("PartC1")
 
 
-def client_code(factory: AbstractFactory) -> None:
+class Product1():
     """
-    The client code works with factories and products only through abstract
-    types: AbstractFactory and AbstractProduct. This lets you pass any factory
-    or product subclass to the client code without breaking it.
-    """
-    product_a = factory.create_product_a()
-    product_b = factory.create_product_b()
+    It makes sense to use the Builder pattern only when your products are quite
+    complex and require extensive configuration.
 
-    print(f"{product_b.useful_function_b()}")
-    print(f"{product_b.another_useful_function_b(product_a)}", end="")
+    Unlike in other creational patterns, different concrete builders can produce
+    unrelated products. In other words, results of various builders may not
+    always follow the same interface.
+    """
+
+    def __init__(self) -> None:
+        self.parts = []
+
+    def add(self, part: Any) -> None:
+        self.parts.append(part)
+
+    def list_parts(self) -> None:
+        print(f"Product parts: {', '.join(self.parts)}", end="")
+
+
+class Director:
+    """
+    The Director is only responsible for executing the building steps in a
+    particular sequence. It is helpful when producing products according to a
+    specific order or configuration. Strictly speaking, the Director class is
+    optional, since the client can control builders directly.
+    """
+
+    def __init__(self) -> None:
+        self._builder = None
+
+    @property
+    def builder(self) -> Builder:
+        return self._builder
+
+    @builder.setter
+    def builder(self, builder: Builder) -> None:
+        """
+        The Director works with any builder instance that the client code passes
+        to it. This way, the client code may alter the final type of the newly
+        assembled product.
+        """
+        self._builder = builder
+
+    """
+    The Director can construct several product variations using the same
+    building steps.
+    """
+
+    def build_minimal_viable_product(self) -> None:
+        self.builder.produce_part_a()
+
+    def build_full_featured_product(self) -> None:
+        self.builder.produce_part_a()
+        self.builder.produce_part_b()
+        self.builder.produce_part_c()
 
 
 if __name__ == "__main__":
     """
-    The client code can work with any concrete factory class.
+    The client code creates a builder object, passes it to the director and then
+    initiates the construction process. The end result is retrieved from the
+    builder object.
     """
-    print("Client: Testing client code with the first factory type:")
-    client_code(ConcreteFactory1())
+
+    director = Director()
+    builder = ConcreteBuilder1()
+    director.builder = builder
+
+    print("Standard basic product: ")
+    director.build_minimal_viable_product()
+    builder.product.list_parts()
 
     print("\n")
 
-    print("Client: Testing the same client code with the second factory type:")
-    client_code(ConcreteFactory2())
+    print("Standard full featured product: ")
+    director.build_full_featured_product()
+    builder.product.list_parts()
+
+    print("\n")
+
+    # Remember, the Builder pattern can be used without a Director class.
+    print("Custom product: ")
+    builder.produce_part_a()
+    builder.produce_part_b()
+    builder.product.list_parts()

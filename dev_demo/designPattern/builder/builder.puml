@@ -1,0 +1,44 @@
+@startuml
+
+Builder <|.. ConcreteBuilder1
+Builder <|.. ConcreteBuilder2
+
+interface Builder{
+        ProducePartA()
+        ProducePartB()
+        ProducePartC()
+}
+
+class ConcreteBuilder1{
+    - product: Product1*
+    + ConcreteBuilder1()
+    + ProducePartA()
+    + ProducePartB()
+    + ProducePartC()
+    + GetProduct(): Product1*
+}
+
+class ConcreteBuilder2{
+    - product: Product2*
+    + ConcreteBuilder2()
+    + ProducePartA()
+    + ProducePartB()
+    + ProducePartC()
+    + GetProduct(): Product2*
+}
+
+Director --> Builder
+
+Client --> Director
+Client ..> ConcreteBuilder1
+Client ..> ConcreteBuilder2
+
+class Director{
+    - builder: Builder*
+    + set_builder
+    + BuildMinimalViableProduct()
+    + BuildFullFeaturedProduct()
+}
+
+
+@enduml

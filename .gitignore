@@ -86,3 +86,4 @@ VirtualEnvs
 *.zip
 *.tgz
 release
+*.out

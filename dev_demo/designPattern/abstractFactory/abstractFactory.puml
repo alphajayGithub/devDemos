@@ -1,0 +1,53 @@
+@startuml
+
+AbstractProductA <|-- ConcreteProductA1
+AbstractProductA <|-- ConcreteProductA2
+
+AbstractProductB <|-- ConcreteProductB1
+AbstractProductB <|-- ConcreteProductB2
+
+
+abstract AbstractProductA{
+  UsefulFunctionA()
+}
+
+abstract AbstractProductB{
+  UsefulFunctionB()
+  AnotherUsefulFunctionB(AbstractProductA &)
+}
+
+ConcreteProductA1 : UsefulFunctionA()
+ConcreteProductA2 : UsefulFunctionA()
+
+ConcreteProductB1 : UsefulFunctionB()
+ConcreteProductB1 : AnotherUsefulFunctionB(AbstractProductA &)
+
+ConcreteProductB2 : UsefulFunctionB()
+ConcreteProductB2 : AnotherUsefulFunctionB(AbstractProductA &)
+
+AbstractFactory <|.. ConcreteFactory1
+AbstractFactory <|.. ConcreteFactory2
+AbstractFactory ..> AbstractProductA
+AbstractFactory ..> AbstractProductB
+
+interface AbstractFactory{
+  AbstractProductA * CreateProductA()
+  AbstractProductB * CreateProductB()
+}
+ConcreteFactory1 : CreateProductA() -> ConcreteProductA1()
+ConcreteFactory1 : CreateProductB() -> ConcreteProductB1()
+
+ConcreteFactory2 : CreateProductA() -> ConcreteProductA2()
+ConcreteFactory2 : CreateProductB() -> ConcreteProductB2()
+
+
+Client -down-> AbstractFactory: AbstractProductA*  AbstractProductB*
+
+class Client{
+    - factory: AbstractFactory
+    + Client(AbstractFactory & )
+    + operation()
+
+}
+
+@enduml
