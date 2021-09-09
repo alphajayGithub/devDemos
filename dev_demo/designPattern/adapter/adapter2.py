@@ -18,20 +18,17 @@ class Adaptee:
         return ".eetpadA eht fo roivaheb laicepS"
 
 
-class Adapter(Target):
+class Adapter(Target, Adaptee):
     """
     The Adapter makes the Adaptee's interface compatible with the Target's
-    interface via composition.
+    interface via multiple inheritance.
     """
 
-    def __init__(self, adaptee: Adaptee) -> None:
-        self.adaptee = adaptee
-
     def request(self) -> str:
-        return f"Adapter: (TRANSLATED) {self.adaptee.specific_request()[::-1]}"
+        return f"Adapter: (TRANSLATED) {self.specific_request()[::-1]}"
 
 
-def client_code(target: Target) -> None:
+def client_code(target: "Target") -> None:
     """
     The client code supports all classes that follow the Target interface.
     """
@@ -51,5 +48,5 @@ if __name__ == "__main__":
     print(f"Adaptee: {adaptee.specific_request()}", end="\n\n")
 
     print("Client: But I can work with it via the Adapter:")
-    adapter = Adapter(adaptee)
+    adapter = Adapter()
     client_code(adapter)

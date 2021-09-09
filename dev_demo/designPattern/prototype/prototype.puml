@@ -3,7 +3,7 @@
 Prototype <|.. ConcretePrototype1
 Prototype <|.. ConcretePrototype2
 
-abstract Prototype{
+interface Prototype{
     # prototype_name_
     # prototype_field_
     + Prototype(prototype_name)
