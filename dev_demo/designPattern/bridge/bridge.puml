@@ -1,0 +1,21 @@
+@startuml
+
+Implementaion <|.. ConcreteImplementationA
+Implementaion <|.. ConcreteImplementationB
+
+interface Implementaion{
+    OperationImplementation()
+}
+
+Abstraction <|-- ExternedAbstraction
+
+interface  Abstraction{
+    # Implementaion_: Implementaion*
+    + Abstraction(Implementaion*)
+    + Operation()
+}
+Abstraction o-->  Implementaion
+Client --> Abstraction
+
+
+@enduml

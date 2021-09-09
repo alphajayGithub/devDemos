@@ -1,0 +1,39 @@
+@startuml
+
+FlyweightFactory ..> SharedState
+FlyweightFactory ..> UniqueState
+
+class SharedState{
+    brand_
+    model_
+    color_
+}
+
+class UniqueState{
+    owner_
+    plates_
+}
+
+
+class Flyweight{
+    + Flyweight( SharedState* )
+    + Flyweight( Flyweight & )
+    + shared_state(): SharedState *
+    + Operation()
+
+}
+
+FlyweightFactory o-- Flyweight
+
+class FlyweightFactory{
+    # Flyweight_: map
+    # Getkey(SharedState&)
+    + FlyweightFactory(list<SharedState>)
+    + GetFlyweight()
+    + ListFlyweight()
+
+}
+
+App --> FlyweightFactory
+
+@enduml

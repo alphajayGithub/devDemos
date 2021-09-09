@@ -1,0 +1,28 @@
+@startuml
+
+Component <|.. Leaf
+Component <|.. Composite
+Component <--o Composite
+
+interface Component{
+    # parent_: Component*
+    + SetParent(Component*)
+    + GetParent(): Component*
+    + Add(Component*)
+    + Remove(Component*)
+    + IsComposite()
+    + Operation()
+}
+class Composite{
+    # children_
+    + Add(Component*)
+    + Remove(Component*)
+    + IsComposite()
+    + Operation()
+}
+
+Leaf : Operation()
+
+Component <.. Client
+
+@enduml

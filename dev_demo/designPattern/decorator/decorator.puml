@@ -1,0 +1,36 @@
+@startuml
+
+Component <|.. ConcreteComponent
+Component <|..  Decorator
+Component <--o  Decorator
+
+interface Component{
+    + Operation()
+}
+
+class ConcreteComponent{
+    + Operation()
+}
+
+class Decorator{
+    # component_: Component*
+    + Decorator(Component*)
+    + Operation()
+}
+
+Decorator <|-- ConcreteDecoratorA
+Decorator <|-- ConcreteDecoratorB
+
+class ConcreteDecoratorA{
+        + ConcreteDecoratorA(Component*)
+        + Operation()
+}
+
+class ConcreteDecoratorB{
+        + ConcreteDecoratorB(Component*)
+        + Operation()
+}
+
+Client --> Component
+
+@enduml

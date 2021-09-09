@@ -1,0 +1,27 @@
+@startuml
+
+Subject <|.. RealSubject
+
+interface Subject{
+    Request()
+}
+
+class RealSubject{
+    + Request()
+}
+
+Subject <|.. Proxy
+Proxy o--> RealSubject
+class Proxy{
+    - read_subject_: RealSubject*
+    - CheckAccess()
+    - LogAccess()
+    + Proxy(RealSubject*)
+    + Request()
+}
+
+Client --> Subject
+Client --> Proxy
+
+
+@enduml
