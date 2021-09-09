@@ -1,0 +1,30 @@
+@startuml
+
+Mediator <|.. ConcreteMediator
+
+interface Mediator{
+    Notify()
+}
+class ConcreteMediator{
+    Notify()
+}
+
+BaseComponent <|-- Component1
+BaseComponent <|-- Component2
+
+class BaseComponent{
+    + set_mediator()
+}
+class Component1{
+    DoA()
+    DoB()
+}
+class Component2{
+    DoC()
+    DoD()
+}
+
+ConcreteMediator --> BaseComponent
+client --> BaseComponent
+client --> ConcreteMediator
+@enduml

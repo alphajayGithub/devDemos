@@ -1,0 +1,24 @@
+@startuml
+
+Handler <|.. AbstractHandler
+Handler --o AbstractHandler
+
+interface Handler{
+    + SetNext(): Handler*
+    + Handler()
+}
+abstract AbstractHandler{
+    - next_handler_
+    + AbstractHandler()
+    + SetNext(): Handler*
+    + Handler()
+}
+
+AbstractHandler <|-- MonkeyHandler
+
+AbstractHandler <|-- SquirrelHandler
+AbstractHandler <|-- DogHandler
+
+Client --> Handler
+
+@enduml

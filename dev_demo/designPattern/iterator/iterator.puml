@@ -1,0 +1,23 @@
+@startuml
+
+class Iterator{
+    First()
+    Next()
+    IsDone()
+    Current()
+}
+
+class Container{
+    Add()
+    CreateIterator()
+}
+
+class Data{
+    set_data()
+    data()
+}
+
+Client --> Container
+Container --> Iterator
+Container ..> Data
+@enduml

@@ -1,0 +1,36 @@
+@startuml
+
+
+interface Command{
+    Execute()
+}
+
+class SimpleCommand{
+    + SimpleCommand()
+    + Execute()
+}
+
+class ComplexCommand{
+    - receiver_
+    + execute()
+}
+class Receiver{
+    + DoSomething()
+    + DoSomethingElse()
+}
+
+class Invoker{
+    - on_start_
+    - on_finish_
+    + SetOnStart(Command*)
+    + SetOnFinish(Command*)
+    + DoSomethingImportant()
+}
+
+Invoker --> Command
+Command <|.. SimpleCommand
+Command <|.. ComplexCommand
+ComplexCommand --> Receiver
+
+
+@enduml
