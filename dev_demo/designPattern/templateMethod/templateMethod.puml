@@ -1,0 +1,29 @@
+@startuml
+
+interface AbstractClass{
+    + TemplateMethod()
+    # BaseOperation1()
+    # BaseOperation2()
+    # BaseOperation3()
+    # RequiredOperation1()
+    # RequiredOperation2()
+    # Hook1()
+    # Hook2()
+}
+
+AbstractClass <|..  ConcreteClass1
+AbstractClass <|..  ConcreteClass2
+
+class ConcreteClass1{
+    RequiredOperation1()
+    RequiredOperation2()
+}
+
+class ConcreteClass2{
+    RequiredOperation1()
+    RequiredOperation2()
+    Hook1()
+}
+Client -> AbstractClass
+
+@enduml

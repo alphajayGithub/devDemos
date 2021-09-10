@@ -1,0 +1,36 @@
+@startuml
+
+ISubject  <|.. Subject
+IObserver <|.. Observer
+
+interface IObserver{
+    update()
+}
+interface ISubject{
+    Attach()
+    Detach()
+    Notify()
+}
+
+class Subject{
+    - message_
+    - list_observer_: list<IObserver *>
+    + Attach()
+    + Detach()
+    + Notify()
+    + CreateMessage()
+    + HowManyObserver()
+    + SomeBusinessLogic()
+}
+
+class Observer{
+    + Update()
+    + RemoveMeFromTheList()
+    + PrintInfo()
+}
+
+Client  ..> IObserver
+Subject o--> IObserver
+Client --> ISubject
+
+@enduml

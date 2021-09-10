@@ -1,0 +1,28 @@
+@startuml
+
+
+interface Strategy{
+    + DoAlgorithm()
+}
+
+class Context{
+    - strategy_
+    + set_strategy(Strategy *)
+    + DoSomeBusinessLogic()
+}
+
+Strategy <|.. ConcreteStrategyA
+Strategy <|.. ConcreteStrategyB
+
+class ConcreteStrategyA{
+    + DoAlgorithm()
+}
+
+class ConcreteStrategyB{
+    + DoAlgorithm()
+}
+
+Client --> Context
+Context ..> Strategy
+
+@enduml

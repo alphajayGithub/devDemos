@@ -1,0 +1,34 @@
+@startuml
+
+
+class State{
+    - context_: Context*
+    + set_context()
+    + Handle1()
+    + Handle2()
+}
+
+class Context{
+    - state_:State*
+    + TransitionTo(State*)
+    + Request1()
+    + Request2()
+}
+
+Context o..> State
+State <|-- ConcreteStateA
+State <|-- ConcreteStateB
+
+class ConcreteStateA{
+    Handler1()
+    Handler2()
+}
+
+class ConcreteStateB{
+    Handler1()
+    Handler2()
+}
+
+Client --> Context
+
+@enduml

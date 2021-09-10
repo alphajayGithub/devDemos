@@ -133,7 +133,6 @@ void ClientCode() {
 
   subject->CreateMessage("My new car is great! ;)");
   observer5->RemoveMeFromTheList();
-
   observer4->RemoveMeFromTheList();
   observer1->RemoveMeFromTheList();
 

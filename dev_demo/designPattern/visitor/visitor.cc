@@ -1,3 +1,6 @@
+#include <iostream>
+#include <array>
+
 /**
  * The Visitor Interface declares a set of visiting methods that correspond to
  * component classes. The signature of a visiting method allows the visitor to

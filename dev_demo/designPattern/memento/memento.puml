@@ -1,0 +1,39 @@
+@startuml
+
+
+Memento <|.. ConcreteMemento
+interface Memento{
+    GetName()
+    date()
+    state()
+}
+
+class ConcreteMemento{
+    - state_
+    - date_
+    + GetName()
+    + date()
+    + state()
+}
+
+class Originator{
+    - state_
+    - GenerateRandomString()
+    + DoSomething()
+    + Save(): Memento*
+    + Restore(Memento*)
+}
+
+class Caretaker {
+    - memento_: vector<Memento*>
+    - originator_: Originator*
+    + Backup()
+    + Undo()
+    + ShowHistory()
+}
+Caretaker o--> Memento
+Caretaker --> Originator
+Originator ..> Memento
+Client --> Caretaker
+
+@enduml

@@ -1,0 +1,44 @@
+@startuml
+
+
+
+
+class Visitor {
+    VisitConcreteComponentA(const ConcreteComponentA *)
+    VisitConcreteComponentB(const ConcreteComponentB *)
+}
+abstract Component{
+    + Accept()
+}
+
+Component <|.. ConcreteComponentA
+Component <|.. ConcreteComponentB
+
+class ConcreteComponentA{
+    + Accept(Visitor*)
+    + ExclusiveMethodOfConcreteComponentA()
+}
+
+class ConcreteComponentB{
+    + Accept(Visitor*)
+    + ExclusiveMethodOfConcreteComponentB()
+}
+
+Visitor <|..  ConcreteVisitor1
+Visitor <|..  ConcreteVisitor2
+
+class ConcreteVisitor1{
+    + VisitConcreteComponentA(const ConcreteComponentA *)
+    + VisitConcreteComponentB(const ConcreteComponentB *)
+}
+
+class ConcreteVisitor2{
+    + VisitConcreteComponentA(const ConcreteComponentA *)
+    + VisitConcreteComponentB(const ConcreteComponentB *)
+}
+
+Client --> Visitor
+Client --> Component
+Visitor o--> Component
+
+@enduml
