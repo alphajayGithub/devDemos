@@ -1,0 +1,55 @@
+@startuml
+' https://plantuml.com/  online server
+
+class 氧气
+class 水
+
+动物 <|-- 鸟: Generalization泛化    - - |>  继承关系   is a
+鸟 <|-- 鸭
+鸟 <|-- 企鹅
+鸟 <|-- 大雁
+
+鸭 <|-- 唐老鸭
+
+氧气 <.. 动物
+水   <.. 动物: Dependency依赖      . . > 临时性关系   use a
+企鹅 --> 气候: Association关联       - - > 长期性关系  has a
+大雁 *-- 翅膀: Composition组合       * - -  own a, contains a (lifetime)
+雁群 o-- 大雁: Aggregation聚合       o - -  has a , is part of
+飞翔 <|.. 大雁: Realization实现         . . |>   抽象实现   realize a
+
+class 动物{
+    - 有生命
+    + 新陈代谢(氧气,水)
+    - 繁殖()
+
+}
+class 鸟{
+    - 羽毛
+    + 下蛋()
+}
+
+
+class 翅膀
+class 气候
+class 雁群{
+    + V形飞行()
+    + 一形飞行()
+}
+
+
+class 大雁
+class 鸭
+class 企鹅
+class 唐老鸭
+
+
+大雁    : 飞()
+大雁    : 下蛋()
+鸭      : 下蛋()
+企鹅    : 下蛋()
+唐老鸭  : 讲话()
+
+interface 飞翔
+飞翔    : 飞()
+@enduml
