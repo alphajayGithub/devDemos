@@ -1,0 +1,16 @@
+@startmindmap
+*   Decoration
+
+** Problem:  House -> Dream House
+** Force:  cost method style
+*** style
+**** 欧 美 北欧  factory
+**** 沙发 餐桌 茶几 椅子 abstract factory
+*** method
+**** 清包 半包 全包 拎包 for 硬装(水电 泥瓦 漆 木 ) 软装(家居 电器)
+**** 精装修  prototype
+**** 硬装修改   Builder
+** Input:   House
+** Output:  DreamHouse
+
+@endmindmap

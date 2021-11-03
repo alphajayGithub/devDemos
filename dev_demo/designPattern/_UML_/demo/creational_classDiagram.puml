@@ -1,0 +1,128 @@
+@startuml
+
+title decoration: problem  restrict  solution
+
+' style:
+' 欧式 https://img2.baidu.com/it/u=4187754476,1011644890&fm=26&fmt=auto
+' 北欧 https://img0.baidu.com/it/u=3106028269,2417631281&fm=26&fmt=auto
+' 中式 https://img0.baidu.com/it/u=2931126506,2657032271&fm=224&fmt=auto&gp=0.jpg
+' 现代 https://img0.baidu.com/it/u=1774551207,2219471492&fm=26&fmt=auto
+' 其他 https://img0.baidu.com/it/u=2755057357,2182906379&fm=26&fmt=auto
+
+
+
+class House{
+    - instance: House
+    - House()
+    + getInstance(): House
+
+}
+设计师 <|-- 设计师A
+设计师 <|-- 设计师B
+
+设计师 ..> 设计方案
+
+设计方案 <|-- 设计方案A
+设计方案 <|-- 设计方案B
+
+class 设计师{
+    - House
+    + 出设计方案(): 设计方案
+}
+
+class 设计师A
+{
+    + 出设计方案(): 设计方案
+}
+
+class 设计师B
+{
+    + 出设计方案(): 设计方案
+}
+
+interface 设计方案{
+    + 施工()
+}
+
+Class 房主{
+    - House
+}
+
+精装房 <|.. 精装房改动
+interface 精装房{
+    + clone()
+}
+
+class 精装房改动{
+    + clone(): 精装房
+    + 改动(精装房)
+}
+软装 <|.. 软装_中式
+软装 <|.. 软装_欧式
+
+interface 软装{
+    + 床()
+    + 沙发()
+    + 餐桌()
+
+}
+
+class 软装_中式{
+    + 床():床_中式
+    + 沙发(): 沙发_中式
+    + 餐桌(): 餐桌_中式
+}
+class 软装_欧式{
+    - style
+    + 床():床_欧式
+    + 沙发(): 沙发_欧式
+    + 餐桌(): 餐桌_欧式
+}
+
+项目经理 --> 装修队
+
+class 项目经理{
+    - House
+    - 装修队
+    + 选择装修队(装修队)
+    + 施工(type)
+}
+
+装修队 <|-- 装修队A
+装修队 <|-- 装修队B
+
+interface 装修队{
+    - House
+    - people: 水电 泥瓦 漆 木
+    + 厨房()
+    + 餐厅()
+    + 卫生间()
+    + 卧室()
+    + 客厅()
+    + 阳台()
+
+}
+
+class 装修队A{
+    - House
+    + 厨房()
+    + 餐厅()
+    + 卫生间()
+    + 卧室()
+    + 客厅()
+    + 阳台()
+
+}
+
+class 装修队B{
+    - House
+    + 厨房()
+    + 餐厅()
+    + 卫生间()
+    + 卧室()
+    + 客厅()
+    + 阳台()
+
+}
+
+@enduml

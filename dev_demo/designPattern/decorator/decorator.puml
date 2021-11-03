@@ -2,7 +2,7 @@
 
 Component <|.. ConcreteComponent
 Component <|..  Decorator
-Component <--o  Decorator
+' Component <--o  Decorator
 
 interface Component{
     + Operation()

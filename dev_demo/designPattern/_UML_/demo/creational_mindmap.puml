@@ -1,0 +1,16 @@
+@startmindmap
+*  Decoration装修
+** Input: House (singlton)
+** Output: 装修好的House
+** Force:  顺序 style cost
+** Problem:
+*** 设计师
+*** 装修方式(精装修 prototype)
+*** 项目经理
+*** 施工
+*** 工程监理
+*** 软装
+
+
+
+@endmindmap

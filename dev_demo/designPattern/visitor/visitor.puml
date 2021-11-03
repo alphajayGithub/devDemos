@@ -1,8 +1,5 @@
 @startuml
 
-
-
-
 class Visitor {
     VisitConcreteComponentA(const ConcreteComponentA *)
     VisitConcreteComponentB(const ConcreteComponentB *)

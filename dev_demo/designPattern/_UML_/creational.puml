@@ -1,0 +1,151 @@
+@startuml
+
+title creationalPattern: problem  restrict solution of 装修
+' style:
+' 欧式 https://img2.baidu.com/it/u=4187754476,1011644890&fm=26&fmt=auto
+' 北欧 https://img0.baidu.com/it/u=3106028269,2417631281&fm=26&fmt=auto
+' 中式 https://img0.baidu.com/it/u=2931126506,2657032271&fm=224&fmt=auto&gp=0.jpg
+' 现代 https://img0.baidu.com/it/u=1774551207,2219471492&fm=26&fmt=auto
+' 其他 https://img0.baidu.com/it/u=2755057357,2182906379&fm=26&fmt=auto
+
+
+
+class House{
+    ' + House()
+     - instance: House
+     - House()
+     + getInstance(): House
+}
+note left of House: singleton单例
+
+
+设计师 <|-- 设计师A
+设计师 <|-- 设计师B
+设计师 ..> 设计方案
+设计方案 <|.. 设计方案A
+设计方案 <|.. 设计方案B
+
+
+note left of 设计师:  Factory工厂
+
+class 设计师{
+    - House
+    + 出设计方案()
+}
+
+class 设计师A{
+    + 出设计方案(): 设计方案
+}
+
+class 设计师B{
+    + 出设计方案(): 设计方案
+}
+
+interface 设计方案{
+    - cost
+    - style
+    + 开始施工()
+}
+
+Class 房主{
+    - House
+}
+
+软装 <|.. 软装_中式
+软装 <|.. 软装_欧式
+
+房主 --> 软装
+房主 ..> 设计师
+房主 ..> 精装房
+
+精装房 <|.. 精装包软装
+精装包软装 <|-- 精装包小改
+
+
+note left of 精装房:  Prototype 原型
+
+interface 精装房{
+    + clone(): 精装房
+}
+
+class 精装包软装 {
+    - 软装
+    + 精装房修饰(精装房)
+    + clone(): 精装房
+}
+
+class 精装包小改{
+    - 软装
+    + 精装房小改(精装房)
+    + clone(): 精装房
+}
+
+
+note left of 软装:  Abstract Factory抽象工厂
+
+interface 软装{
+    - style
+    + 有沙发(): 沙发
+    + 有床(): 床
+}
+
+class 软装_中式{
+
+    + 有沙发(): 沙发_中式
+    + 有床(): 床_中式
+}
+
+class 软装_欧式{
+    + 有沙发(): 沙发_欧式
+    + 有床(): 床_欧式
+}
+
+class 项目经理{
+    - House
+    - 装修队
+    + 施工(设计方案)
+    + 改变设计方案(装修队)
+    + 执行设计方案(装修队)
+}
+
+房主  ..> 装修队A
+房主  --> 项目经理
+项目经理 --> 装修队
+装修队 <|.. 装修队A
+装修队 <|.. 装修队B
+
+note right of 装修队:  Builder 生成器
+interface 装修队{
+    - House
+    - people: 水电 泥瓦 漆 木
+    + 厨房()
+    + 餐厅()
+    + 卫生间()
+    + 卧室()
+    + 客厅()
+    + 阳台()
+}
+
+class 装修队A{
+    - result: 硬装成品A
+    + 厨房()
+    + 餐厅()
+    + 卫生间()
+    + 卧室()
+    + 客厅()
+    + 阳台()
+    + getResult()
+}
+
+class 装修队B{
+    - result: 硬装成品B
+    + 厨房()
+    + 餐厅()
+    + 卫生间()
+    + 卧室()
+    + 客厅()
+    + 阳台()
+    + getResult()
+}
+
+@enduml

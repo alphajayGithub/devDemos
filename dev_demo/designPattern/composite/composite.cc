@@ -156,6 +156,8 @@ int main() {
   Component *leaf_3 = new Leaf;
   branch1->Add(leaf_1);
   branch1->Add(leaf_2);
+
+
   Component *branch2 = new Composite;
   branch2->Add(leaf_3);
   tree->Add(branch1);
@@ -166,6 +168,16 @@ int main() {
 
   std::cout << "Client: I don't need to check the components classes even when managing the tree:\n";
   ClientCode2(tree, simple);
+  std::cout << "\n";
+
+  // add from yueshen
+  Component *branch3 = new Composite;
+  std::cout << "\n";
+  ClientCode2(branch3, branch1);
+  std::cout << "\n";
+  ClientCode2(branch3, branch2);
+  std::cout << "\n";
+  ClientCode2(tree, branch3);
   std::cout << "\n";
 
   delete simple;

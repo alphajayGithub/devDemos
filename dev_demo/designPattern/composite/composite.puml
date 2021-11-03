@@ -2,7 +2,7 @@
 
 Component <|.. Leaf
 Component <|.. Composite
-Component <--o Composite
+' Component <--o Composite
 
 interface Component{
     # parent_: Component*
