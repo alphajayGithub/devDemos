@@ -1,0 +1,86 @@
+@startuml
+
+title decoration: problem  restrict  solution
+
+' boost design pattern: https://theboostcpplibraries.com/design-patterns
+
+note left of 宜居住房: xx模式
+
+住户 --> 宜居住房
+宜居住房 <--  功能改造
+
+interface 宜居住房{
+}
+
+
+interface 功能改造{
+}
+
+
+
+住户 --> 智能家居
+note left of 智能家居: xx模式
+
+
+interface 智能家居{
+    + 设备控制(开关, 延时, 其他)
+}
+
+class 小爱同学{
+    + 设备连接()
+}
+
+智能家居 -->  小爱同学
+智能家居 --> 灯具
+
+
+住户 --> 收纳整理
+note left of 收纳整理: xx模式
+
+interface 收纳整理{
+    + 收纳()
+}
+
+
+住户 --> 水
+note left of 水: xx模式
+
+
+水 <-- 净水
+
+interface 水{
+    + 出水()
+}
+class 净水{
+}
+
+
+住户 --> 电
+note left of 电:  xx模式
+
+电     <-- 插座
+
+interface  电{
+    + 插电(电压,插头)
+}
+
+class 插座{
+
+}
+
+
+住户 --> 食品
+note left of 食品: xx模式
+
+食品    <-- 冷菜装盘
+食品    <-- 热菜装盘
+
+interface 食品{
+    + 吃()
+}
+class 冷菜装盘{
+}
+
+
+
+@enduml

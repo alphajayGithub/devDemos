@@ -1,6 +1,6 @@
 @startmindmap
 *  Decoration装修
-** Input: House (singlton)
+** Input: House (singleton)
 ** Output: 装修好的House
 ** Force:  顺序 style cost
 ** Problem:

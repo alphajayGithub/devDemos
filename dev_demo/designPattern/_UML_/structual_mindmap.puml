@@ -1,0 +1,17 @@
+@startmindmap
+*  布置
+
+** Input:  装修的House
+** Output: 宜居的House
+** Force:  收纳 智能 整洁
+** Content
+*** 水电适配(插座 3通 转换头)   Adaptor
+*** 前置过滤/软水机/净水器      Proxy
+*** 小爱同学                   Facade
+*** 柜子/收纳盒/整理箱          Composite
+*** 刀架/调味架/拉篮            Composite
+*** 锅碗瓢盆                    Decorator
+*** 扫地机器人/吸尘器/小家电
+*** 工具箱
+
+@endmindmap
