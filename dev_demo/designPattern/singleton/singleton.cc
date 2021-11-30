@@ -1,6 +1,6 @@
 #include <iostream>
 #include <thread>
-
+#include <pthread.h>
 /**
  * The Singleton class defines the `GetInstance` method that serves as an
  * alternative to constructor and lets clients access the same instance of this
@@ -66,6 +66,7 @@ Singleton *Singleton::GetInstance(const std::string& value)
      * This is a safer way to create an instance. instance = new Singleton is
      * dangeruous in case two instance threads wants to access at the same time
      */
+
     if(singleton_==nullptr){
         singleton_ = new Singleton(value);
     }
@@ -74,7 +75,7 @@ Singleton *Singleton::GetInstance(const std::string& value)
 
 void ThreadFoo(){
     // Following code emulates slow initialization.
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000)); 
     Singleton* singleton = Singleton::GetInstance("FOO");
     std::cout << singleton->value() << "\n";
 }
