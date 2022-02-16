@@ -136,6 +136,8 @@ void ClientCode() {
   observer4->RemoveMeFromTheList();
   observer1->RemoveMeFromTheList();
 
+  subject->CreateMessage("Any observer?");
+
   delete observer5;
   delete observer4;
   delete observer3;

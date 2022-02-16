@@ -1,6 +1,6 @@
 @startuml
 
-class Visitor {
+interface Visitor {
     VisitConcreteComponentA(const ConcreteComponentA *)
     VisitConcreteComponentB(const ConcreteComponentB *)
 }

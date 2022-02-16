@@ -1,0 +1,41 @@
+@startuml
+title decoration: problem  restrict  solution
+
+'example of 儿童教育：  家 家长 小孩  学校 老师
+
+
+note left of 学校上学: observer
+note left of 教育方法: strategy
+
+class 儿童教育
+儿童教育 --> 教育方法
+儿童教育 --> 学校上学
+class 教育方法
+class 学校上学
+
+class 家
+class 家长
+class 小孩
+class 学校
+class 老师
+
+
+
+
+
+
+
+
+
+
+@enduml
+'note left of 教育现状: state
+'note left of 教育研究: iterator
+
+'note left of 教育理念: template method
+'note left of 教育实施: visitor
+'note left of 辅导作业: mediator
+'note left of 考试成绩: mememto
+'note left of 学校收费: chain of responsiblity
+'note left of 学校交互: command
+'note left of 学校家长: mediator

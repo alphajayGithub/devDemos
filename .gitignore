@@ -87,3 +87,7 @@ VirtualEnvs
 *.tgz
 release
 *.out
+
+GTAGS
+GRTAGS
+GPATH
