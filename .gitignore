@@ -91,3 +91,7 @@ release
 GTAGS
 GRTAGS
 GPATH
+
+algm.go
+go.mod
+main
