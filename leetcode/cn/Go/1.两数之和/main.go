@@ -1,7 +1,7 @@
 package main
 import "fmt"
 func main(){
-    str := "[[\"[2,7,11,15]\",\"9\"]]"
+    str := "[[\"[3,3]\",\"6\"]]"
     arr := parseStringArrArr(str)
     for i:=0;i<len(arr);i++ {
         unitArgs:=arr[i]
