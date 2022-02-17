@@ -6,9 +6,9 @@
 
 // @lc code=start
 
-/*
 package main
 
+/*
 import (
 	"fmt"
 )
@@ -21,6 +21,7 @@ func main() {
 }
 
 */
+
 func twoSum(nums []int, target int) []int {
     hashTable := map[int]int{}
     for i, x := range nums {
