@@ -3,8 +3,8 @@
 Prototype <|.. ConcretePrototype1
 Prototype <|.. ConcretePrototype2
 
-interface Prototype{
-    # prototype_name_
+abstract Prototype{
+    - prototype_name_
     # prototype_field_
     + Prototype(prototype_name)
     + Prototype* Clone()
@@ -23,12 +23,12 @@ class ConcretePrototype2{
     + Prototype * Clone()
 }
 
-Prototype "N" o.. "1" PrototypeFactory #line:red;line.bold;text:red
+Prototype "N" --o "1" PrototypeFactory #line:red;line.bold;text:red
 
 class PrototypeFactory{
     - prototypes_
-    + PrototypeFactory() ->prototypes_[Type]
-    + CreatePrototype(Type) ->  Prototype * = prototypes_[Type].Clone()
+    + PrototypeFactory()
+    + CreatePrototype(Type)
 }
 
 Client -[bold]-> PrototypeFactory

@@ -80,7 +80,12 @@ if __name__ == "__main__":
 
     # Let's change the list in shallow_copied_component and see if it changes in
     # component.
+
+    print(component.some_list_of_objects)
+
     shallow_copied_component.some_list_of_objects.append("another object")
+    print(component.some_list_of_objects)
+    print(shallow_copied_component.some_list_of_objects)
     if component.some_list_of_objects[-1] == "another object":
         print(
             "Adding elements to `shallow_copied_component`'s "
@@ -96,6 +101,8 @@ if __name__ == "__main__":
 
     # Let's change the set in the list of objects.
     component.some_list_of_objects[1].add(4)
+    print(component.some_list_of_objects)
+    print(shallow_copied_component.some_list_of_objects)
     if 4 in shallow_copied_component.some_list_of_objects[1]:
         print(
             "Changing objects in the `component`'s some_list_of_objects "
@@ -114,6 +121,8 @@ if __name__ == "__main__":
     # Let's change the list in deep_copied_component and see if it changes in
     # component.
     deep_copied_component.some_list_of_objects.append("one more object")
+    print(component.some_list_of_objects)
+    print(deep_copied_component.some_list_of_objects)
     if component.some_list_of_objects[-1] == "one more object":
         print(
             "Adding elements to `deep_copied_component`'s "
@@ -129,6 +138,8 @@ if __name__ == "__main__":
 
     # Let's change the set in the list of objects.
     component.some_list_of_objects[1].add(10)
+    print(component.some_list_of_objects)
+    print(deep_copied_component.some_list_of_objects)
     if 10 in deep_copied_component.some_list_of_objects[1]:
         print(
             "Changing objects in the `component`'s some_list_of_objects "
@@ -141,6 +152,32 @@ if __name__ == "__main__":
             "doesn't change that object in `deep_copied_component`'s "
             "some_list_of_objects."
         )
+
+    print(
+        f"id(component): "
+        f"{id(component)}"
+    )
+    print(
+        f"id(component.some_circular_ref.parent): "
+        f"{id(component.some_circular_ref.parent)}"
+    )
+    print(
+        f"id(component.some_circular_ref.parent.some_circular_ref.parent): "
+        f"{id(component.some_circular_ref.parent)}"
+    )
+
+    print(
+        f"id(shallow_copied_component.some_circular_ref.parent): "
+        f"{id(shallow_copied_component.some_circular_ref.parent)}"
+    )
+    print(
+        f"id(shallow_copied_component): "
+        f"{id(shallow_copied_component)}"
+    )
+    print(
+        f"id(deep_copied_component): "
+        f"{id(deep_copied_component)}"
+    )
 
     print(
         f"id(deep_copied_component.some_circular_ref.parent): "

@@ -61,7 +61,7 @@ class ConcreteBuilder1(Builder):
         client code before disposing of the previous result.
         """
         product = self._product
-        self.reset()
+        self.reset()  #在getProduct1之后执行reset()，清空,实际是new Product1（）
         return product
 
     def produce_part_a(self) -> None:
@@ -109,7 +109,7 @@ class Director:
     def builder(self) -> Builder:
         return self._builder
 
-    @builder.setter
+    @builder.setter   # director.builder = builder  -> director.builder(builder)
     def builder(self, builder: Builder) -> None:
         """
         The Director works with any builder instance that the client code passes
@@ -158,5 +158,5 @@ if __name__ == "__main__":
     # Remember, the Builder pattern can be used without a Director class.
     print("Custom product: ")
     builder.produce_part_a()
-    builder.produce_part_b()
+    builder.produce_part_c()
     builder.product.list_parts()

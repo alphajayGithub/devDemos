@@ -1,12 +1,16 @@
 @startuml
 
+Creator ..> Product
+
 Creator <|.. ConcreteCreator1
 Creator <|.. ConcreteCreator2
 
 Product <|.. ConcreteProduct1
 Product <|.. ConcreteProduct2
 
-Creator ..> Product : Product* = FactoryMethod()
+ConcreteProduct1 <.. ConcreteCreator1
+ConcreteProduct2 <.. ConcreteCreator2
+
 
 interface Product{
     Operation()
@@ -19,7 +23,7 @@ class ConcreteProduct2{
    Operation()
 }
 
-interface Creator {
+abstract Creator {
     Product* FactoryMethod()
     SomeOperation()
 }

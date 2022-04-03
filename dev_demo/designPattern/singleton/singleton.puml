@@ -3,12 +3,12 @@
 Client --> Singleton: Singleton*=Singleton::GetInstance()
 
 class Singleton{
-    # {static} Singleton*
-    # value
-    # Singleton(value)
+    # {static} singleton_
+    # Singleton(std::string)
+    # value_
     + <del>Singleton(&) </del>
     + <del>Singleton=(&) </del>
-    + {static} GetInstance(): Singleton
+    + {static} GetInstance(): Singleton *
 }
 
 @enduml

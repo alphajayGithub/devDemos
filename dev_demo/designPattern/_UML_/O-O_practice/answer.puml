@@ -21,7 +21,7 @@ class 鸟{
 
 动物 <|-- 鸟
 鸟   *-- 翅膀:  Composition组合
-雁群 o-- 大雁:  Aggregation聚合 
+雁群 o-- 大雁:  Aggregation聚合
 企鹅 --> 气候:  Association关联
 
 class 气候
@@ -42,6 +42,7 @@ class 鸭
 class 企鹅
 class 唐老鸭
 
+企鹅    : 气候
 大雁    : 飞()
 大雁    : 下蛋()
 鸭      : 下蛋()

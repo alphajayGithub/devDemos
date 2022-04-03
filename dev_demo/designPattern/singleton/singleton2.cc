@@ -71,6 +71,7 @@ std::mutex Singleton::mutex_;
 Singleton *Singleton::GetInstance(const std::string& value)
 {
     std::lock_guard<std::mutex> lock(mutex_);
+    // 加锁 防止重入
     if (pinstance_ == nullptr)
     {
         pinstance_ = new Singleton(value);

@@ -1,3 +1,6 @@
+# [理解python metaclass](https://blog.csdn.net/wwx890208/article/details/80644400)
+# [python如何实现单例模式？常用方法汇总！](https://baijiahao.baidu.com/s?id=1700691718078230093)
+# [cls含义及使用方法 - 偷月 - 博客园](https://www.cnblogs.com/wayne-tou/p/11896706.html)
 class SingletonMeta(type):
     """
     The Singleton class can be implemented in different ways in Python. Some

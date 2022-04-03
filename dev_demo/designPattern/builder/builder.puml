@@ -12,6 +12,7 @@ interface Builder{
 class ConcreteBuilder1{
     - product: Product1*
     + ConcreteBuilder1()
+    + reset()
     + ProducePartA()
     + ProducePartB()
     + ProducePartC()
@@ -21,6 +22,7 @@ class ConcreteBuilder1{
 class ConcreteBuilder2{
     - product: Product2*
     + ConcreteBuilder2()
+    + reset()
     + ProducePartA()
     + ProducePartB()
     + ProducePartC()
@@ -29,13 +31,15 @@ class ConcreteBuilder2{
 
 Director --> Builder
 
-Client --> Director
-Client ..> ConcreteBuilder1
-Client ..> ConcreteBuilder2
+'Client --> Director
+'Client ..> ConcreteBuilder1
+'Client ..> ConcreteBuilder2
+ConcreteBuilder1  --> Product1
+ConcreteBuilder2  --> Product2
 
 class Director{
     - builder: Builder*
-    + set_builder
+    + set_builder(Builder*)
     + BuildMinimalViableProduct()
     + BuildFullFeaturedProduct()
 }

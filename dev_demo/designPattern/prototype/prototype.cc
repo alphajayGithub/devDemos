@@ -19,8 +19,9 @@ enum Type {
  */
 
 class Prototype {
- protected:
+ private:
   string prototype_name_;
+ protected:
   float prototype_field_;
 
  public:

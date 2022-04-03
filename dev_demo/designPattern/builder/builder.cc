@@ -13,18 +13,19 @@
 
 class Product1{
     public:
-    std::vector<std::string> parts_;
-    void ListParts()const{
-        std::cout << "Product parts: ";
-        for (size_t i=0;i<parts_.size();i++){
-            if(parts_[i]== parts_.back()){
-                std::cout << parts_[i];
-            }else{
-                std::cout << parts_[i] << ", ";
+        Product1():parts_(){}; //初始化防止未初始化的异常
+        std::vector<std::string> parts_;
+        void ListParts()const{
+            std::cout << "Product parts: ";
+            for (size_t i=0;i<parts_.size();i++){
+                if(parts_[i]== parts_.back()){
+                    std::cout << parts_[i];
+                }else{
+                    std::cout << parts_[i] << ", ";
+                }
             }
+            std::cout << "\n\n";
         }
-        std::cout << "\n\n";
-    }
 };
 
 
@@ -109,6 +110,7 @@ class ConcreteBuilder1 : public Builder{
     Product1* GetProduct() {
         Product1* result= this->product;
         this->Reset();
+        //important: GetProduct()之后通过Reset得到一个clean的product
         return result;
     }
 };
@@ -163,8 +165,11 @@ class Director{
  */
 void ClientCode(Director& director)
 {
+    //绑定director和builder
     ConcreteBuilder1* builder = new ConcreteBuilder1();
     director.set_builder(builder);
+
+
     std::cout << "Standard basic product:\n";
     director.BuildMinimalViableProduct();
 
@@ -180,6 +185,7 @@ void ClientCode(Director& director)
     delete p;
 
     // Remember, the Builder pattern can be used without a Director class.
+    // 私人定制化product，所以不需要通过director帮忙
     std::cout << "Custom product:\n";
     builder->ProducePartA();
     builder->ProducePartC();
