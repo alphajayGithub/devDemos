@@ -93,8 +93,7 @@ GTAGS
 GRTAGS
 GPATH
 
-algm.go
-go.mod
 main
-main.go
+main.*
 a.out.dSYM
+
