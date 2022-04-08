@@ -96,4 +96,6 @@ GPATH
 main
 main.*
 a.out.dSYM
+mod
+out
 
