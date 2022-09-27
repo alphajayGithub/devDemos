@@ -1,0 +1,3 @@
+[submodule "dev_demo/python/docx/python-docx-template"]
+	path = dev_demo/python/docx/python-docx-template
+	url = ssh://git@github.com/elapouya/python-docx-template.git
